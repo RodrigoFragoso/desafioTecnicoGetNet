@@ -1,9 +1,13 @@
 ## Desafio Técnico GetNet
 ### __Criado os testes de API do site: https://reqres.in/__
 * Para mapear os testes a serem automatizados e o mínimo aceitável de cobertura, foi utilizado as técnicas de testes: Partição de equivalência com tabela de decisão.
-  
+
+>___
+
 ### __Para executar todos os testes, execute o seguinte comando:__
 <code> mvn surefire:test </code>
+
+>___
 
 ### __Estrutura do projeto__
 [desafioTecnicoGetNet](./desafioTecnicoGetNet/)
