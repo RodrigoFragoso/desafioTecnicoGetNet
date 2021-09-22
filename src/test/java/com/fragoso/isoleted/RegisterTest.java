@@ -5,6 +5,7 @@ import com.fragoso.factory.RegisterDataFactory;
 import com.fragoso.pojo.Register;
 import io.restassured.http.ContentType;
 import org.aeonbits.owner.ConfigFactory;
+import org.apache.http.HttpStatus;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,7 +31,7 @@ public class RegisterTest {
             .post("/register")
         .then()
             .assertThat()
-                .statusCode(200);
+                .statusCode(HttpStatus.SC_OK);
     }
 
     @Test
@@ -43,7 +44,7 @@ public class RegisterTest {
             .post("/register")
         .then()
             .assertThat()
-                .statusCode(400);
+                .statusCode(HttpStatus.SC_BAD_REQUEST);
     }
 
     @Test
@@ -56,7 +57,7 @@ public class RegisterTest {
             .post("/register")
         .then()
             .assertThat()
-                .statusCode(400);
+                .statusCode(HttpStatus.SC_BAD_REQUEST);
     }
 
     @Test
@@ -69,7 +70,7 @@ public class RegisterTest {
             .post("/register")
         .then()
             .assertThat()
-                .statusCode(400);
+                .statusCode(HttpStatus.SC_BAD_REQUEST);
     }
 
 }
