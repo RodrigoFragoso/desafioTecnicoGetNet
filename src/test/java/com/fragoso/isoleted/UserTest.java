@@ -11,6 +11,7 @@ import static org.hamcrest.Matchers.*;
 
 import io.restassured.http.ContentType;
 import org.aeonbits.owner.ConfigFactory;
+import org.apache.http.HttpStatus;
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,7 +41,7 @@ public class UserTest {
             .post("/login")
         .then()
             .assertThat()
-                .statusCode(200)
+                .statusCode(HttpStatus.SC_OK)
                 .body("$", hasKey("token"))
             .extract()
                 .path("token");
@@ -57,7 +58,7 @@ public class UserTest {
             .post("/users")
         .then()
             .assertThat()
-                .statusCode(201)
+                .statusCode(HttpStatus.SC_CREATED)
                 .body("$", hasKey("id"))
                 .body("$", hasKey("createdAt"))
                 .body("name", equalTo("Rodrigo Fragoso"))
@@ -74,7 +75,7 @@ public class UserTest {
             .post("/users")
         .then()
             .assertThat()
-                .statusCode(201)
+                .statusCode(HttpStatus.SC_CREATED)
                 .body("$", hasKey("id"))
                 .body("$", hasKey("createdAt"))
                 .body("name", equalTo(name))
@@ -91,7 +92,7 @@ public class UserTest {
             .post("/users")
         .then()
             .assertThat()
-                .statusCode(201)
+                .statusCode(HttpStatus.SC_CREATED)
                 .body("$", hasKey("id"))
                 .body("$", hasKey("createdAt"))
                 .body("name", equalTo("Rodrigo Fragoso"))
@@ -108,7 +109,7 @@ public class UserTest {
             .post("/users")
         .then()
             .assertThat()
-                .statusCode(201)
+                .statusCode(HttpStatus.SC_CREATED)
                 .body("$", hasKey("id"))
                 .body("$", hasKey("createdAt"))
                 .body("name", equalTo(""))
@@ -125,7 +126,7 @@ public class UserTest {
             .post("/users")
         .then()
             .assertThat()
-                .statusCode(201)
+                .statusCode(HttpStatus.SC_CREATED)
                 .body("$", hasKey("id"))
                 .body("$", hasKey("createdAt"))
                 .body("name", equalTo(name))
@@ -141,7 +142,7 @@ public class UserTest {
             .post("/users")
         .then()
             .assertThat()
-                .statusCode(201)
+                .statusCode(HttpStatus.SC_CREATED)
                 .body("$", hasKey("id"))
                 .body("$", hasKey("createdAt"));
     }
@@ -156,7 +157,7 @@ public class UserTest {
             .put("/users/"+id)
         .then()
             .assertThat()
-                .statusCode(200)
+                .statusCode(HttpStatus.SC_OK)
                 .body("name", equalTo("Rodrigo Fragoso"))
                 .body("job", equalTo("Test Engineer"))
                 .body("$", hasKey("updatedAt"));
@@ -170,7 +171,7 @@ public class UserTest {
             .get("/users/"+id)
         .then()
             .assertThat()
-                .statusCode(200)
+                .statusCode(HttpStatus.SC_OK)
                 .body("data.id", equalTo(1))
                 .body("data", hasKey("email"))
                 .body("data", hasKey("first_name"))
@@ -187,18 +188,18 @@ public class UserTest {
             .get("/users/"+id)
         .then()
             .assertThat()
-                .statusCode(404)
+                .statusCode(HttpStatus.SC_NOT_FOUND)
                 .body("isEmpty()", Matchers.is(true));
     }
 
     @Test
-    public void testDeleteUser() throws IOException {
+        public void testDeleteUser() throws IOException {
         given()
             .contentType(ContentType.JSON)
         .when()
             .delete("/users/"+id)
         .then()
             .assertThat()
-                .statusCode(204);
+                .statusCode(HttpStatus.SC_NO_CONTENT);
     }
 }

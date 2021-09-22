@@ -9,6 +9,7 @@ import com.fragoso.factory.LoginDataFactory;
 import com.fragoso.pojo.Login;
 import io.restassured.http.ContentType;
 import org.aeonbits.owner.ConfigFactory;
+import org.apache.http.HttpStatus;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,7 +32,7 @@ public class LoginTest {
             .post("/login")
         .then()
             .assertThat()
-                .statusCode(200)
+                .statusCode(HttpStatus.SC_OK)
                 .body("$", hasKey("token"))
             .extract()
                 .path("token");
@@ -47,7 +48,7 @@ public class LoginTest {
             .post("/login")
         .then()
             .assertThat()
-                .statusCode(400)
+                .statusCode(HttpStatus.SC_BAD_REQUEST)
                 .body("error", equalToIgnoringCase("user not found"));
     }
 
@@ -61,7 +62,7 @@ public class LoginTest {
             .post("/login")
         .then()
             .assertThat()
-                .statusCode(400)
+                .statusCode(HttpStatus.SC_BAD_REQUEST)
                 .body("error", equalToIgnoringCase("Missing password"));
     }
 }
